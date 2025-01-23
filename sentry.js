@@ -2,7 +2,7 @@ import * as Sentry from "@sentry/react";
 
 Sentry.init({
   environment: process.env, // 环境
-  dsn: "https://ba77f1d3a97b52c9842665351cb8c128@sentry.tapbit.io/3", // 项目DSN
+  dsn: "https://ba77f1d3a97b52c9842665351cb8c128@sentry.test.io/3", // 项目DSN
   integrations: [
     Sentry.browserTracingIntegration(), // 开启浏览器性能监控
     Sentry.browserProfilingIntegration(), // 开启浏览器性能分析
