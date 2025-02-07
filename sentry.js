@@ -1,5 +1,6 @@
 import * as Sentry from "@sentry/react";
 
+// sentry 版本对应 24.9.0
 Sentry.init({
   environment: process.env, // 环境
   dsn: "https://ba77f1d3a97b52c9842665351cb8c128@sentry.test.io/3", // 项目DSN
@@ -72,7 +73,7 @@ Sentry.init({
   },
 });
  
-**********************
+/**********************/
  
 // 2、 设置全局用户信息
 Sentry.setUser({
@@ -95,7 +96,7 @@ Sentry.setExtras({
   buildTime: process.env.BUILD_TIME
 });
  
-*********************
+/*********************/
  
 // 3、使用 beforeSend 钩子添加通用数据
 Sentry.init({
