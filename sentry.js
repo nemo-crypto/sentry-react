@@ -56,3 +56,71 @@ Sentry.init({
 
 window.Sentry = Sentry
 
+// 数据埋点
+// 1、 Sentry.init 配置
+Sentry.init({
+  // 添加默认标签
+  defaultTags: {
+    environment: 'production',
+    platform: 'web'
+  },
+  // 添加默认上下文
+  initialScope: {
+    tags: { version: '1.0.0' },
+    user: { role: 'user' },
+    extras: { region: 'CN' }
+  },
+});
+ 
+**********************
+ 
+// 2、 设置全局用户信息
+Sentry.setUser({
+  id: '1111',
+  email:'userEmail',
+  role: 'userRole'
+});
+ 
+// 设置全局标签
+Sentry.setTag('app_version', '1.0.0');
+Sentry.setTags({
+  platform: 'web',
+  region: 'asia'
+});
+ 
+// 设置全局额外信息
+Sentry.setExtra('deployEnvironment', 'staging');
+Sentry.setExtras({
+  serverRegion: 'east-asia',
+  buildTime: process.env.BUILD_TIME
+});
+ 
+*********************
+ 
+// 3、使用 beforeSend 钩子添加通用数据
+Sentry.init({
+  beforeSend(event, hint) {
+    // 添加自定义上下文
+    event.extra = {
+      ...event.extra,
+      deviceInfo: getDeviceInfo(),
+      userAgent: navigator.userAgent,
+      timestamp: new Date().toISOString()
+    };
+     
+    // 添加自定义标签
+    event.tags = {
+      ...event.tags,
+      appVersion: process.env.VERSION,
+      buildNumber: process.env.BUILD_NUMBER
+    };
+     
+    // 可以过滤或修改事件
+    if (event.exception) {
+      event.fingerprint = ['{{ default }}', event.exception.values[0].type];
+    }
+     
+    return event;
+  }
+});
+
