@@ -124,3 +124,17 @@ Sentry.init({
   }
 });
 
+// 自定义事件上报
+Sentry.captureEvent({
+  message: "用户切换主题",
+  level: "info",
+  tags: {
+    button_id: "theme_button",
+    user_type: "vip"
+  },
+  extra: {
+    theme: newTheme,
+    currency: "CNY"
+  }
+});
+
