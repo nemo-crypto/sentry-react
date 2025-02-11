@@ -81,6 +81,8 @@ Sentry.setUser({
   email:'userEmail',
   role: 'userRole'
 });
+
+// 管理后台Issues 中通过 user.id:11111 来查询
  
 // 设置全局标签
 Sentry.setTag('app_version', '1.0.0');
