@@ -57,7 +57,7 @@ Sentry.init({
 
 window.Sentry = Sentry
 
-// 数据埋点
+// 数据埋点 自定义参数
 // 1、 Sentry.init 配置
 Sentry.init({
   // 添加默认标签
