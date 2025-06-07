@@ -127,7 +127,7 @@ Sentry.init({
   }
 });
 
-// 自定义事件上报
+// 自定义事件上报  类似于 数据 埋点
 Sentry.captureEvent({
   message: "用户切换主题",
   level: "info",
