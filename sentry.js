@@ -49,7 +49,7 @@ Sentry.init({
     return breadcrumb;
   },
   tracesSampleRate: 1.0,  // 采样率:监控追踪数据100%采集
-  tracePropagationTargets: [/ida-it\.com/i, /tapbit\.(?:io|tw|com|net)/i], // 仅对指定域名的请求进行追踪(域名+path)
+  tracePropagationTargets: [/ida-it\.com/i, /example\.(?:com|net)/i], // 仅对指定域名的请求进行追踪(域名+path)
   profilesSampleRate: 1.0, // 采样率:性能数据100%采集
   replaysSessionSampleRate: 0.1, // 采样率:会话重放数据10%采集
   replaysOnErrorSampleRate: 1.0, // 采样率:错误重放数据100%采集
