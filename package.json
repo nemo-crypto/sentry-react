@@ -1,0 +1,27 @@
+{
+  "name": "sentry-react-demo",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.14 <25"
+  },
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "check": "node --test tests/*.test.js",
+    "test": "npm run check && playwright test",
+    "setup:browsers": "playwright install chromium"
+  },
+  "dependencies": {
+    "@sentry/react": "^10.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "vite": "^7.0.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "@playwright/test": "^1.56.0"
+  }
+}

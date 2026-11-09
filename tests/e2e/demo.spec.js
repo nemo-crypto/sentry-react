@@ -1,0 +1,33 @@
+import { test, expect } from '@playwright/test'
+test('无 DSN 可捕获事件，默认不向外部发送数据', async ({ page }) => {
+  const outgoing = []
+  page.on('request', request => { if (!request.url().startsWith('http://127.0.0.1:4174')) outgoing.push(request.url()) })
+  await page.goto('/')
+  await page.getByRole('button', { name: '捕获演示异常' }).click()
+  await expect(page.getByTestId('event-payload')).toContainText('Demo：订单校验失败')
+  await expect(page.getByLabel('事件列表')).toContainText('已在本地接收')
+  await page.getByRole('button', { name: '等待发送队列完成' }).click()
+  await expect(page.getByRole('status')).toContainText('发送队列已处理')
+  expect(outgoing).toEqual([])
+})
+test('错误边界可恢复且脱敏后无演示秘密值', async ({ page }) => {
+  await page.goto('/')
+  await page.getByRole('button', { name: '触发组件崩溃' }).click()
+  await expect(page.getByRole('alert')).toContainText('其他区域仍可操作')
+  await page.getByRole('button', { name: '恢复组件' }).click()
+  await expect(page.getByRole('button', { name: '触发组件崩溃' })).toBeVisible()
+  await page.getByRole('button', { name: '生成脱敏示例' }).click()
+  await expect(page.getByTestId('event-payload')).toContainText('Demo：脱敏检查')
+  const payload = await page.getByTestId('event-payload').textContent()
+  for (const secret of ['demo-token-do-not-keep', 'demo-password', 'demo-query', 'demo-secret', 'demo-body', 'demo@example.invalid']) expect(payload).not.toContain(secret)
+  expect(payload).toContain('[Filtered]')
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
+  await page.screenshot({ path: `test-results/sentry-${test.info().project.name}.png`, fullPage: true })
+})
+test('性能示例生成包含子 span 的事务', async ({ page }) => {
+  await page.goto('/')
+  await page.getByRole('button', { name: '运行性能示例' }).click()
+  await expect(page.getByLabel('事件列表')).toContainText('demo.load-dashboard')
+  await page.getByRole('button', { name: /demo.load-dashboard/ }).click()
+  await expect(page.getByTestId('event-payload')).toContainText('demo.prepare-data')
+})
