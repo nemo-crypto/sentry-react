@@ -2,6 +2,17 @@
 
 本目录保存 [sentry.js](sentry.js) 配置片段，原记录对应Sentry服务端24.9.0与 `@sentry/react` 8.31.0。没有React应用脚手架、package.json或Sentry服务端部署工程，需要集成到现有React项目。
 
+<!-- BEGIN project-discovery -->
+## 项目定位与实践入口
+
+Sentry React SDK integration snippets for error monitoring, browser tracing, profiling and Session Replay. React 前端异常监控与性能追踪配置参考，需集成到宿主应用。
+
+适合从以下入口阅读实现与接入条件：
+
+- [SDK 配置片段](sentry.js)
+- [接入边界与验证方法](README.md)
+<!-- END project-discovery -->
+
 ## 示例涉及的能力
 
 | 能力 | 源码内容 | 接入要点 |
