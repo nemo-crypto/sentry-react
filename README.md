@@ -1,5 +1,7 @@
 # Sentry React 监控实验室
 
+**[在线体验 · 打开 Sentry React 监控实验室](https://nemo-crypto.github.io/sentry-react/)**
+
 可直接运行的 React Demo：异常捕获、可恢复的组件错误边界、异步任务追踪、事件脱敏与 JSON 观察台。无需 Sentry 账号即可完整体验本地流程。
 
 ## 开箱即用
