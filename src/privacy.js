@@ -4,10 +4,10 @@ export function stripUrl(value) {
   try { const url = new URL(value); return `${url.origin}${url.pathname}` } catch { return value.split(/[?#]/)[0] }
 }
 function scrub(value, key = '') {
-  if (privateKey.test(key)) return '[Filtered]'
+  if (privateKey.test(key) || /^(url|http)\.(query|fragment)$/i.test(key)) return '[Filtered]'
   if (Array.isArray(value)) return value.map(item => scrub(item))
   if (value && typeof value === 'object') return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, scrub(v, k)]))
-  if (/^(url|from|to)$/.test(key)) return stripUrl(value)
+  if (/^(url|from|to|http\.url|url\.full)$/i.test(key)) return stripUrl(value)
   return value
 }
 export function sanitizeEvent(event) {
